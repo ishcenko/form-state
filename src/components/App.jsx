@@ -3,7 +3,7 @@ import BookForm from './BookForm/BookForm';
 import booksData from './books.json';
 
 const books = booksData.books;
-console.log(books);
+// console.log(books);
 export class App extends Component {
   state = {
     books: books,
@@ -17,10 +17,23 @@ export class App extends Component {
     });
   };
 
+  onAddBook = booksData => {
+    console.log(booksData);
+
+    const finalBook = {
+      ...booksData,
+      id: (Math.random() * 10).toString(),
+    };
+
+    this.setState({
+      books: [...this.state.books, finalBook],
+    });
+  };
+
   render() {
     return (
       <div>
-        <BookForm />
+        <BookForm title="Book Form" onAddBook={this.onAddBook} />
         <ul>
           {this.state.books.map(book => (
             <li key={book.id}>
